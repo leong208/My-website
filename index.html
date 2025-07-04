@@ -1,8 +1,9 @@
-<!DOCTYPE html><html lang="id">
+<!DOCTYPE html>
+<html lang="id">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>SlotPlay - Daftar</title>
+  <title>SlotPlay</title>
   <style>
     body {
       margin: 0;
@@ -33,56 +34,96 @@
     }
     .btn-blue { background-color: #007bff; color: #fff; }
     .btn-red { background-color: #dc3545; color: #fff; }
-    .form-section {
-      padding: 20px;
+
+    .menu-bawah {
+      position: fixed;
+      bottom: 0;
+      width: 100%;
+      display: flex;
+      justify-content: space-around;
+      background: #1b1b1b;
+      border-top: 1px solid #333;
     }
-    h2 {
-      margin-top: 20px;
-      color: #00bfff;
-      border-bottom: 1px solid #444;
-      padding-bottom: 5px;
-    }
-    label {
-      display: block;
-      margin-top: 10px;
+    .menu-bawah button {
+      background: none;
+      color: white;
+      border: none;
+      padding: 10px;
+      flex-grow: 1;
       font-size: 14px;
     }
-    input, select {
+
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 1000;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0,0,0,0.7);
+    }
+    .modal-content {
+      background-color: #fff;
+      color: black;
+      margin: 15% auto;
+      padding: 20px;
+      border-radius: 6px;
+      width: 90%;
+      max-width: 400px;
+    }
+    .modal input {
       width: 100%;
       padding: 10px;
-      border: none;
-      margin-top: 5px;
-      border-radius: 5px;
-      font-size: 16px;
+      margin: 8px 0;
+      border: 1px solid #ccc;
+      border-radius: 4px;
     }
-    .info-box {
-      background: #333;
-      color: #ccc;
-      padding: 10px;
-      font-size: 12px;
-      border-radius: 5px;
-      margin-top: 10px;
-    }
-    .btn-submit {
+    .modal button {
       width: 100%;
-      margin-top: 20px;
-      padding: 12px;
-      background-color: #007bff;
-      border: none;
+      padding: 10px;
+      background-color: red;
       color: white;
+      border: none;
+      border-radius: 4px;
       font-weight: bold;
-      border-radius: 5px;
-      font-size: 16px;
+      cursor: pointer;
+    }
+    .modal a {
+      display: block;
+      text-align: center;
+      margin-top: 10px;
+      color: #007bff;
+      text-decoration: none;
     }
   </style>
 </head>
-<body><header>
+<body>
+
+<header>
   <h1>ASIASLOT</h1>
   <div class="btn-group">
-    <button class="btn-blue" onclick="window.location.href='register.html'">Daftar</button>
-    <button class="btn-red" onclick="window.location.href='login.html'">Masuk</button>
+    <button class="btn-blue" onclick="showRegister()">Daftar</button>
+    <button class="btn-red" onclick="showLogin()">Masuk</button>
   </div>
-</header><div class="form-section">
+</header>
+
+<!-- Modal Login -->
+<div id="loginModal" class="modal">
+  <div class="modal-content">
+    <h2>Masuk</h2>
+    <input type="text" id="username" placeholder="Username">
+    <input type="password" id="password" placeholder="Password">
+    <label><input type="checkbox"> Gunakan biometrik</label>
+    <button onclick="login()">Masuk</button>
+    <a href="#">Lupa Password?</a>
+    <a href="#" onclick="switchToRegister()">Buat Akun</a>
+  </div>
+</div>
+
+<!-- Modal Daftar -->
+<div id="registerModal" class="modal">
+  <div class="form-section">
   <h2>INFORMASI AKUN</h2>
   <label>Username</label>
   <input type="text" id="username" />
@@ -92,13 +133,17 @@
   <input type="password" id="passwordConfirm" />
   <div class="info-box">
     Password wajib memiliki minimal 8 karakter, dan wajib memiliki minimal 1 huruf dan 1 angka. Karakter spesial yang diperbolehkan adalah ! @ # $ % ^ * _ | , .
-  </div>  <h2>INFORMASI PRIBADI</h2>
+  </div>
+
+  <h2>INFORMASI PRIBADI</h2>
   <label>Nama Lengkap</label>
   <input type="text" id="fullname" />
   <label>Email</label>
   <input type="email" id="email" />
   <label>Nomor Telepon</label>
-  <input type="tel" id="phone" value="+62" />  <h2>INFORMASI BANK</h2>
+  <input type="tel" id="phone" value="+62" />
+
+  <h2>INFORMASI BANK</h2>
   <label>Metode Pembayaran</label>
   <select id="paymentMethod">
     <option value="">Pilih Metode Pembayaran</option>
@@ -111,9 +156,12 @@
   <label>Kode Referral</label>
   <input type="text" id="referral" />
   <label>Captcha</label>
-  <input type="text" id="captcha" /><button class="btn-submit" onclick="submitRegister()">Daftar</button>
+  <input type="text" id="captcha" />
 
-</div><script>
+  <button class="btn-submit" onclick="submitRegister()">Daftar</button>
+</div>
+
+<script>
   async function submitRegister() {
     const data = {
       username: document.getElementById('username').value,
@@ -152,5 +200,74 @@
       alert("Terjadi kesalahan saat mengirim data ke server.");
     }
   }
-</script></body>
+</script>
+
+<!-- Menu Bawah -->
+<div class="menu-bawah">
+  <button onclick="showRegister()">Daftar</button>
+  <button onclick="showLogin()">Masuk</button>
+  <button>Promosi</button>
+  <button>Menu</button>
+</div>
+
+<script>
+  function showLogin() {
+    document.getElementById("loginModal").style.display = "block";
+    document.getElementById("registerModal").style.display = "none";
+  }
+  function showRegister() {
+    document.getElementById("registerModal").style.display = "block";
+    document.getElementById("loginModal").style.display = "none";
+  }
+  function switchToRegister() {
+    showRegister();
+  }
+  function switchToLogin() {
+    showLogin();
+  }
+  window.onclick = function(event) {
+    if (event.target.classList.contains("modal")) {
+      event.target.style.display = "none";
+    }
+  }
+
+  async function login() {
+    const username = document.getElementById("username").value;
+    const password = document.getElementById("password").value;
+
+    const res = await fetch("http://localhost:3000/login", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ username, password })
+    });
+
+    const data = await res.json();
+    if (data.token) {
+      alert("Login berhasil!");
+    } else {
+      alert("Login gagal.");
+    }
+  }
+
+  async function register() {
+    const username = document.getElementById("reg_username").value;
+    const password = document.getElementById("reg_password").value;
+
+    const res = await fetch("http://localhost:3000/register", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ username, password })
+    });
+
+    const data = await res.json();
+    if (data.success) {
+      alert("Pendaftaran berhasil!");
+      switchToLogin();
+    } else {
+      alert("Pendaftaran gagal.");
+    }
+  }
+</script>
+
+</body>
 </html>

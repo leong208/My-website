@@ -1,162 +1,117 @@
-<!DOCTYPE html>
-<html lang="id">
+<!DOCTYPE html><html lang="id">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>SlotPlay</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AsiaSlot</title>
   <style>
     body {
       margin: 0;
-      font-family: Arial, sans-serif;
-      background-color: #121212;
-      color: #fff;
+      font-family: 'Segoe UI', sans-serif;
+      background: #0d0d0d;
+      color: white;
     }
     header {
-      background-color: #000;
-      padding: 10px;
       display: flex;
       justify-content: space-between;
       align-items: center;
+      background: #000;
+      padding: 10px 15px;
     }
-    header h1 {
-      margin: 0;
+    .logo {
+      font-weight: bold;
       font-size: 20px;
-      padding-left: 10px;
-      color: red;
+      color: #ff2c2c;
     }
     .btn-group button {
-      margin-right: 10px;
+      margin-left: 10px;
       padding: 8px 14px;
       border: none;
-      border-radius: 4px;
+      border-radius: 6px;
       font-weight: bold;
       cursor: pointer;
     }
-    .btn-blue { background-color: #007bff; color: #fff; }
-    .btn-red { background-color: #dc3545; color: #fff; }
-
-    .menu-bawah {
+    .btn-daftar { background: #007bff; color: white; }
+    .btn-masuk { background: #dc3545; color: white; }
+    .banner {
+      background: linear-gradient(to right, #2c3e50, #4ca1af);
+      text-align: center;
+      padding: 30px 10px;
+      font-size: 20px;
+      font-weight: bold;
+    }
+    .menu-game {
+      display: flex;
+      overflow-x: auto;
+      padding: 10px;
+      gap: 10px;
+      background: #111;
+    }
+    .game-item {
+      flex: 0 0 auto;
+      text-align: center;
+      padding: 10px;
+      border-radius: 10px;
+      background: #222;
+      min-width: 80px;
+    }
+    .game-item img {
+      width: 40px;
+      margin-bottom: 5px;
+    }
+    footer {
       position: fixed;
       bottom: 0;
-      width: 100%;
+      left: 0;
+      right: 0;
+      background: #000;
       display: flex;
       justify-content: space-around;
-      background: #1b1b1b;
-      border-top: 1px solid #333;
+      padding: 10px 0;
+      border-top: 1px solid #444;
     }
-    .menu-bawah button {
-      background: none;
-      color: white;
-      border: none;
-      padding: 10px;
-      flex-grow: 1;
-      font-size: 14px;
-    }
-
-    .modal {
-      display: none;
-      position: fixed;
-      z-index: 1000;
-      left: 0;
-      top: 0;
-      width: 100%;
-      height: 100%;
-      background-color: rgba(0,0,0,0.7);
-    }
-    .modal-content {
-      background-color: #fff;
-      color: black;
-      margin: 15% auto;
-      padding: 20px;
-      border-radius: 6px;
-      width: 90%;
-      max-width: 400px;
-    }
-    .modal input {
-      width: 100%;
-      padding: 10px;
-      margin: 8px 0;
-      border: 1px solid #ccc;
-      border-radius: 4px;
-    }
-    .modal button {
-      width: 100%;
-      padding: 10px;
-      background-color: red;
-      color: white;
-      border: none;
-      border-radius: 4px;
-      font-weight: bold;
-      cursor: pointer;
-    }
-    .modal a {
-      display: block;
+    .nav-icon {
+      font-size: 12px;
       text-align: center;
-      margin-top: 10px;
-      color: #007bff;
-      text-decoration: none;
+      color: #aaa;
     }
   </style>
 </head>
 <body>
-
-<header>
-  <h1>ASIASLOT</h1>
-  <div class="btn-group">
-    <button class="btn-blue" onclick="showRegister()">Daftar</button>
-    <button class="btn-red" onclick="showLogin()">Masuk</button>
-  </div>
-</header>
-
-<!-- Modal Login -->
-<div id="loginModal" class="modal">
-  <div class="modal-content">
-    <h2>Masuk</h2>
-    <input type="text" id="username" placeholder="Username">
-    <input type="password" id="password" placeholder="Password">
-    <label><input type="checkbox"> Gunakan biometrik</label>
-    <button onclick="login()">Masuk</button>
-    <a href="#">Lupa Password?</a>
-    <a href="#" onclick="switchToRegister()">Buat Akun</a>
-  </div>
-</div>
-
-<!-- Modal Daftar -->
-<div id="registerModal" class="modal">
-  <div class="form-section">
-    <h2>INFORMASI AKUN</h2>
-  <label>Username</label>
-  <input type="text" id="username" />
-  <label>Password</label>
-  <input type="password" id="password" />
-  <label>Masukkan kembali Password</label>
-  <input type="password" id="passwordConfirm" />
-  <div class="info-box">
-    Password wajib memiliki minimal 8 karakter, dan wajib memiliki minimal 1 huruf dan 1 angka. Karakter spesial yang diperbolehkan adalah ! @ # $ % ^ * _ | , .
-  </div>
-
-  <h2>INFORMASI PRIBADI</h2>
-  <label>Nama Lengkap</label>
-  <input type="text" id="fullname" />
-  <label>Email</label>
-  <input type="email" id="email" />
-  <label>Nomor Telepon</label>
-  <input type="tel" id="phone" value="+62" />
-
-  <h2>INFORMASI BANK</h2>
-  <label>Metode Pembayaran</label>
-  <select id="paymentMethod">
-    <option value="">Pilih Metode Pembayaran</option>
-    <option value="BCA">BCA</option>
-    <option value="BRI">BRI</option>
-    <option value="Dana">Dana</option>
-    <option value="OVO">OVO</option>
-    <option value="Gopay">Gopay</option>
-  </select>
-  <label>Kode Referral</label>
-  <input type="text" id="referral" />
-  <label>Captcha</label>
-  <input type="text" id="captcha" />
-
-  <button class="btn-submit" onclick="submitRegister()">Daftar</button>
-</div>
+  <header>
+    <div class="logo">ASIASLOT</div>
+    <div class="btn-group">
+      <button class="btn-daftar">Daftar</button>
+      <button class="btn-masuk">Masuk</button>
+    </div>
+  </header>  <div class="banner">
+    💰 Promo Spesial - Total Hadiah 2 Miliar!
+  </div>  <div class="menu-game">
+    <div class="game-item">
+      <img src="https://img.icons8.com/ios-filled/50/ffffff/slot-machine.png" alt="slot">
+      <div>Slots</div>
+    </div>
+    <div class="game-item">
+      <img src="https://img.icons8.com/ios-filled/50/ffffff/poker-chip.png" alt="casino">
+      <div>Casino</div>
+    </div>
+    <div class="game-item">
+      <img src="https://img.icons8.com/ios-filled/50/ffffff/controller.png" alt="sports">
+      <div>Sports</div>
+    </div>
+    <div class="game-item">
+      <img src="https://img.icons8.com/ios-filled/50/ffffff/cards.png" alt="poker">
+      <div>Poker</div>
+    </div>
+    <div class="game-item">
+      <img src="https://img.icons8.com/ios-filled/50/ffffff/lotto.png" alt="lotto">
+      <div>Lotto</div>
+    </div>
+  </div>  <footer>
+    <div class="nav-icon">🏠<br>Beranda</div>
+    <div class="nav-icon">📝<br>Daftar</div>
+    <div class="nav-icon">🔐<br>Masuk</div>
+    <div class="nav-icon">🎁<br>Promosi</div>
+    <div class="nav-icon">☰<br>Menu</div>
+  </footer>
+</body>
+</html>

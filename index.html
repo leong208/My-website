@@ -106,12 +106,63 @@
       <img src="https://img.icons8.com/ios-filled/50/ffffff/lotto.png" alt="lotto">
       <div>Lotto</div>
     </div>
-  </div>  <footer>
+  </div>
+
+  <footer>
     <div class="nav-icon">🏠<br>Beranda</div>
     <div class="nav-icon">📝<br>Daftar</div>
     <div class="nav-icon">🔐<br>Masuk</div>
     <div class="nav-icon">🎁<br>Promosi</div>
     <div class="nav-icon">☰<br>Menu</div>
   </footer>
+
+  <!-- Modal Login -->
+  <div id="modal-login" class="modal">
+    <div class="modal-content">
+      <h3>Masuk Akun</h3>
+      <input type="text" placeholder="Username" id="login-user">
+      <input type="password" placeholder="Password" id="login-pass">
+      <button onclick="submitLogin()">Masuk</button>
+      <div class="close-btn" onclick="closeModal('login')">Tutup</div>
+    </div>
+  </div>
+
+  <!-- Modal Register -->
+  <div id="modal-register" class="modal">
+    <div class="modal-content">
+      <h3>Buat Akun Baru</h3>
+      <input type="text" placeholder="Username" id="reg-user">
+      <input type="password" placeholder="Password" id="reg-pass">
+      <input type="password" placeholder="Ulangi Password" id="reg-repass">
+      <input type="text" placeholder="Nama Lengkap" id="reg-nama">
+      <input type="email" placeholder="Email" id="reg-email">
+      <input type="tel" placeholder="Nomor HP" id="reg-hp">
+      <button onclick="submitRegister()">Daftar</button>
+      <div class="close-btn" onclick="closeModal('register')">Tutup</div>
+    </div>
+  </div>
+
+  <script>
+    function showModal(type) {
+      document.getElementById(`modal-${type}`).style.display = 'flex';
+    }
+    function closeModal(type) {
+      document.getElementById(`modal-${type}`).style.display = 'none';
+    }
+    function submitLogin() {
+      alert("Login berhasil (simulasi)");
+      closeModal('login');
+    }
+    function submitRegister() {
+      const pass = document.getElementById("reg-pass").value;
+      const repass = document.getElementById("reg-repass").value;
+      if (pass !== repass) {
+        alert("Password tidak cocok");
+        return;
+      }
+      alert("Pendaftaran berhasil (simulasi)");
+      closeModal('register');
+    }
+  </script>
 </body>
-</html>
+  </html>

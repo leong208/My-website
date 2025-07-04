@@ -1,9 +1,8 @@
-<!DOCTYPE html>
-<html lang="id">
+<!DOCTYPE html><html lang="id">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>SlotPlay</title>
+  <title>SlotPlay - Login & Daftar</title>
   <style>
     body {
       margin: 0;
@@ -33,83 +32,77 @@
       cursor: pointer;
     }
     .btn-blue { background-color: #007bff; color: #fff; }
-    .btn-red { background-color: #dc3545; color: #fff; }
+    .btn-red { background-color: #dc3545; color: #fff; }.menu-bawah {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+  background: #1b1b1b;
+  border-top: 1px solid #333;
+}
+.menu-bawah button {
+  background: none;
+  color: white;
+  border: none;
+  padding: 10px;
+  flex-grow: 1;
+  font-size: 14px;
+}
 
-    .menu-bawah {
-      position: fixed;
-      bottom: 0;
-      width: 100%;
-      display: flex;
-      justify-content: space-around;
-      background: #1b1b1b;
-      border-top: 1px solid #333;
-    }
-    .menu-bawah button {
-      background: none;
-      color: white;
-      border: none;
-      padding: 10px;
-      flex-grow: 1;
-      font-size: 14px;
-    }
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 1000;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0,0,0,0.7);
+}
+.modal-content {
+  background-color: #fff;
+  color: black;
+  margin: 15% auto;
+  padding: 20px;
+  border-radius: 6px;
+  width: 90%;
+  max-width: 400px;
+}
+.modal input {
+  width: 100%;
+  padding: 10px;
+  margin: 8px 0;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+.modal button {
+  width: 100%;
+  padding: 10px;
+  background-color: red;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  font-weight: bold;
+  cursor: pointer;
+}
+.modal a {
+  display: block;
+  text-align: center;
+  margin-top: 10px;
+  color: #007bff;
+  text-decoration: none;
+}
 
-    .modal {
-      display: none;
-      position: fixed;
-      z-index: 1000;
-      left: 0;
-      top: 0;
-      width: 100%;
-      height: 100%;
-      background-color: rgba(0,0,0,0.7);
-    }
-    .modal-content {
-      background-color: #fff;
-      color: black;
-      margin: 15% auto;
-      padding: 20px;
-      border-radius: 6px;
-      width: 90%;
-      max-width: 400px;
-    }
-    .modal input {
-      width: 100%;
-      padding: 10px;
-      margin: 8px 0;
-      border: 1px solid #ccc;
-      border-radius: 4px;
-    }
-    .modal button {
-      width: 100%;
-      padding: 10px;
-      background-color: red;
-      color: white;
-      border: none;
-      border-radius: 4px;
-      font-weight: bold;
-      cursor: pointer;
-    }
-    .modal a {
-      display: block;
-      text-align: center;
-      margin-top: 10px;
-      color: #007bff;
-      text-decoration: none;
-    }
   </style>
 </head>
-<body>
-
-<header>
+<body><header>
   <h1>ASIASLOT</h1>
   <div class="btn-group">
     <button class="btn-blue" onclick="showRegister()">Daftar</button>
     <button class="btn-red" onclick="showLogin()">Masuk</button>
   </div>
-</header>
-
-<!-- Modal Login -->
-<div id="loginModal" class="modal">
+</header><!-- Modal Login --><div id="loginModal" class="modal">
   <div class="modal-content">
     <h2>Masuk</h2>
     <input type="text" id="username" placeholder="Username">
@@ -119,10 +112,7 @@
     <a href="#">Lupa Password?</a>
     <a href="#" onclick="switchToRegister()">Buat Akun</a>
   </div>
-</div>
-
-<!-- Modal Daftar -->
-<div id="registerModal" class="modal">
+</div><!-- Modal Daftar --><div id="registerModal" class="modal">
   <div class="modal-content">
     <h2>Daftar Akun</h2>
     <input type="text" id="reg_username" placeholder="Username">
@@ -130,17 +120,12 @@
     <button onclick="register()">Daftar</button>
     <a href="#" onclick="switchToLogin()">Sudah punya akun? Masuk</a>
   </div>
-</div>
-
-<!-- Menu Bawah -->
-<div class="menu-bawah">
+</div><!-- Menu Bawah --><div class="menu-bawah">
   <button onclick="showRegister()">Daftar</button>
   <button onclick="showLogin()">Masuk</button>
   <button>Promosi</button>
   <button>Menu</button>
-</div>
-
-<script>
+</div><script>
   function showLogin() {
     document.getElementById("loginModal").style.display = "block";
     document.getElementById("registerModal").style.display = "none";
@@ -197,7 +182,5 @@
       alert("Pendaftaran gagal.");
     }
   }
-</script>
-
-</body>
+</script></body>
 </html>

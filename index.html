@@ -1,4 +1,5 @@
-<!DOCTYPE html><html lang="id">
+<!DOCTYPE html>
+<html lang="id">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -74,18 +75,65 @@
       text-align: center;
       color: #aaa;
     }
+    .modal {
+      display: none;
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(0,0,0,0.8);
+      z-index: 999;
+      justify-content: center;
+      align-items: center;
+    }
+    .modal-content {
+      background: #1c1c1c;
+      padding: 20px;
+      border-radius: 10px;
+      width: 90%;
+      max-width: 400px;
+    }
+    .modal-content h3 {
+      margin-top: 0;
+      text-align: center;
+    }
+    .modal-content input {
+      width: 100%;
+      margin-bottom: 10px;
+      padding: 10px;
+      border: none;
+      border-radius: 5px;
+      font-size: 14px;
+    }
+    .modal-content button {
+      width: 100%;
+      padding: 10px;
+      border: none;
+      background: #007bff;
+      color: white;
+      font-weight: bold;
+      border-radius: 5px;
+    }
+    .close-btn {
+      text-align: center;
+      margin-top: 10px;
+      color: #ccc;
+      cursor: pointer;
+    }
   </style>
 </head>
 <body>
   <header>
     <div class="logo">ASIASLOT</div>
     <div class="btn-group">
-      <button class="btn-daftar">Daftar</button>
-      <button class="btn-masuk">Masuk</button>
+      <button class="btn-daftar" onclick="showModal('register')">Daftar</button>
+      <button class="btn-masuk" onclick="showModal('login')">Masuk</button>
     </div>
-  </header>  <div class="banner">
+  </header>
+
+  <div class="banner">
     💰 Promo Spesial - Total Hadiah 2 Miliar!
-  </div>  <div class="menu-game">
+  </div>
+
+  <div class="menu-game">
     <div class="game-item">
       <img src="https://img.icons8.com/ios-filled/50/ffffff/slot-machine.png" alt="slot">
       <div>Slots</div>
@@ -165,4 +213,4 @@
     }
   </script>
 </body>
-  </html>
+</html>

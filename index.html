@@ -1,116 +1,110 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Slot Game</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Slot Game - Login & Daftar</title>
   <style>
     body {
       font-family: Arial, sans-serif;
       background-color: #f4f4f4;
-      margin: 0;
-      padding: 0;
       display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
       flex-direction: column;
-    }
-
-    h2 {
-      color: #333;
+      align-items: center;
+      padding: 40px;
     }
 
     .container {
-      background-color: white;
-      padding: 30px;
+      background: white;
+      padding: 20px;
       border-radius: 8px;
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
       width: 300px;
-      text-align: center;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+      margin-bottom: 20px;
     }
 
-    input[type="text"], input[type="password"] {
+    input, button {
       width: 100%;
+      margin: 8px 0;
       padding: 10px;
-      margin: 10px 0;
-      border: 1px solid #ccc;
       border-radius: 5px;
+      border: 1px solid #ccc;
     }
 
     button {
-      width: 100%;
-      padding: 10px;
       background-color: #2d89ef;
       color: white;
       border: none;
-      border-radius: 5px;
       cursor: pointer;
-      transition: background-color 0.3s ease;
+      font-weight: bold;
     }
 
     button:hover {
-      background-color: #1f6bd3;
+      background-color: #1b5fad;
     }
 
-    #result {
-      margin-top: 20px;
-      font-size: 18px;
-      color: #333;
-    }
-
-    footer {
-      position: absolute;
-      bottom: 10px;
-      width: 100%;
-      text-align: center;
+    #message {
+      color: red;
       font-size: 14px;
-      color: #555;
     }
 
-    footer a {
-      color: #2d89ef;
-      text-decoration: none;
+    #success {
+      color: green;
+      font-size: 14px;
     }
 
-    footer a:hover {
-      text-decoration: underline;
-    }
-
-    @media (max-width: 600px) {
-      .container {
-        width: 90%;
-      }
+    #registerForm {
+      display: none;
     }
   </style>
 </head>
 <body>
 
 <div class="container">
-  <h2>Slot Login</h2>
+  <h2>Login Akun</h2>
   <input type="text" id="username" placeholder="Username" required>
   <input type="password" id="password" placeholder="Password" required>
-  <button onclick="login()">Login</button>
+  <button onclick="login()" id="loginBtn">Login</button>
 
-  <h2>Spin Result</h2>
-  <button onclick="spin()">SPIN</button>
-  <p id="result"></p>
+  <p id="message"></p>
+
+  <h3>Tidak punya akun?</h3>
+  <button onclick="toggleRegister()">Daftar Akun Baru</button>
 </div>
 
-<footer>
-  <p>&copy; 2025 Slot Game | <a href="https://github.com/NamaKamu" target="_blank">GitHub</a></p>
-</footer>
+<div class="container" id="registerForm">
+  <h2>Form Pendaftaran</h2>
+  <input type="text" id="reg_username" placeholder="Username baru" required>
+  <input type="password" id="reg_password" placeholder="Password baru" required>
+  <button onclick="register()">Daftar</button>
+  <p id="success"></p>
+</div>
 
 <script>
   let token = '';
+  let loginAttempts = 0;
+  let locked = false;
 
-  // Login function with validation
+  function sanitize(input) {
+    return input.replace(/[^a-zA-Z0-9@._-]/g, "");
+  }
+
+  function toggleRegister() {
+    const form = document.getElementById("registerForm");
+    form.style.display = form.style.display === "none" ? "block" : "none";
+  }
+
   async function login() {
-    const username = document.getElementById("username").value;
-    const password = document.getElementById("password").value;
+    if (locked) {
+      document.getElementById("message").innerText = "Terlalu banyak percobaan gagal. Tunggu sebentar...";
+      return;
+    }
+
+    const username = sanitize(document.getElementById("username").value.trim());
+    const password = sanitize(document.getElementById("password").value.trim());
 
     if (!username || !password) {
-      alert("Harap isi semua kolom!");
+      document.getElementById("message").innerText = "Username dan password wajib diisi!";
       return;
     }
 
@@ -121,34 +115,50 @@
     });
 
     const data = await res.json();
+
     if (data.token) {
       token = data.token;
       alert("Login sukses!");
+      document.getElementById("message").innerText = "";
     } else {
-      alert("Login gagal. Periksa username dan password.");
+      loginAttempts++;
+      document.getElementById("message").innerText = "Login gagal. Silakan coba lagi.";
+      
+      if (loginAttempts >= 3) {
+        locked = true;
+        document.getElementById("loginBtn").disabled = true;
+        document.getElementById("message").innerText = "Terlalu banyak gagal login. Tunggu 10 detik...";
+        setTimeout(() => {
+          locked = false;
+          loginAttempts = 0;
+          document.getElementById("loginBtn").disabled = false;
+          document.getElementById("message").innerText = "";
+        }, 10000);
+      }
     }
   }
 
-  // Spin function with error handling
-  async function spin() {
-    if (!token) {
-      alert("Harap login terlebih dahulu!");
+  async function register() {
+    const username = sanitize(document.getElementById("reg_username").value.trim());
+    const password = sanitize(document.getElementById("reg_password").value.trim());
+
+    if (!username || !password) {
+      document.getElementById("success").innerText = "Username dan password wajib diisi!";
       return;
     }
 
-    const res = await fetch("http://localhost:3000/spin", {
+    const res = await fetch("http://localhost:3000/register", {
       method: "POST",
-      headers: {
-        "Authorization": `Bearer ${token}`,
-        "Content-Type": "application/json"
-      }
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ username, password })
     });
 
     const data = await res.json();
+
     if (data.success) {
-      document.getElementById("result").innerText = `Hasil Spin: ${data.result}`;
+      document.getElementById("success").innerText = "Pendaftaran berhasil! Silakan login.";
     } else {
-      document.getElementById("result").innerText = "Spin gagal, coba lagi!";
+      document.getElementById("success").innerText = data.message || "Pendaftaran gagal.";
     }
   }
 </script>

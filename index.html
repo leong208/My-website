@@ -1,52 +1,157 @@
 <!DOCTYPE html>
-<html>
+<html lang="id">
 <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Slot Game</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f4;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      flex-direction: column;
+    }
+
+    h2 {
+      color: #333;
+    }
+
+    .container {
+      background-color: white;
+      padding: 30px;
+      border-radius: 8px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      width: 300px;
+      text-align: center;
+    }
+
+    input[type="text"], input[type="password"] {
+      width: 100%;
+      padding: 10px;
+      margin: 10px 0;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+
+    button {
+      width: 100%;
+      padding: 10px;
+      background-color: #2d89ef;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    button:hover {
+      background-color: #1f6bd3;
+    }
+
+    #result {
+      margin-top: 20px;
+      font-size: 18px;
+      color: #333;
+    }
+
+    footer {
+      position: absolute;
+      bottom: 10px;
+      width: 100%;
+      text-align: center;
+      font-size: 14px;
+      color: #555;
+    }
+
+    footer a {
+      color: #2d89ef;
+      text-decoration: none;
+    }
+
+    footer a:hover {
+      text-decoration: underline;
+    }
+
+    @media (max-width: 600px) {
+      .container {
+        width: 90%;
+      }
+    }
+  </style>
 </head>
 <body>
+
+<div class="container">
   <h2>Slot Login</h2>
-  <input type="text" id="username" placeholder="Username">
-  <input type="password" id="password" placeholder="Password">
+  <input type="text" id="username" placeholder="Username" required>
+  <input type="password" id="password" placeholder="Password" required>
   <button onclick="login()">Login</button>
 
   <h2>Spin Result</h2>
   <button onclick="spin()">SPIN</button>
   <p id="result"></p>
+</div>
 
-  <script>
-    let token = '';
+<footer>
+  <p>&copy; 2025 Slot Game | <a href="https://github.com/NamaKamu" target="_blank">GitHub</a></p>
+</footer>
 
-    async function login() {
-      const username = document.getElementById("username").value;
-      const password = document.getElementById("password").value;
+<script>
+  let token = '';
 
-      const res = await fetch("http://localhost:3000/login", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ username, password })
-      });
+  // Login function with validation
+  async function login() {
+    const username = document.getElementById("username").value;
+    const password = document.getElementById("password").value;
 
-      const data = await res.json();
-      if (data.token) {
-        token = data.token;
-        alert("Login sukses!");
-      } else {
-        alert("Login gagal");
+    if (!username || !password) {
+      alert("Harap isi semua kolom!");
+      return;
+    }
+
+    const res = await fetch("http://localhost:3000/login", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ username, password })
+    });
+
+    const data = await res.json();
+    if (data.token) {
+      token = data.token;
+      alert("Login sukses!");
+    } else {
+      alert("Login gagal. Periksa username dan password.");
+    }
+  }
+
+  // Spin function with error handling
+  async function spin() {
+    if (!token) {
+      alert("Harap login terlebih dahulu!");
+      return;
+    }
+
+    const res = await fetch("http://localhost:3000/spin", {
+      method: "POST",
+      headers: {
+        "Authorization": `Bearer ${token}`,
+        "Content-Type": "application/json"
       }
-    }
+    });
 
-    async function spin() {
-      const res = await fetch("http://localhost:3000/spin", {
-        method: "POST",
-        headers: {
-          "Authorization": `Bearer ${token}`,
-          "Content-Type": "application/json"
-        }
-      });
-
-      const data = await res.json();
-      document.getElementById("result").innerText = JSON.stringify(data);
+    const data = await res.json();
+    if (data.success) {
+      document.getElementById("result").innerText = `Hasil Spin: ${data.result}`;
+    } else {
+      document.getElementById("result").innerText = "Spin gagal, coba lagi!";
     }
-  </script>
+  }
+</script>
+
 </body>
 </html>

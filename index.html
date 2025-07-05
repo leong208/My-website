@@ -1,4 +1,5 @@
-<!DOCTYPE html><html lang="id">
+<!DOCTYPE html>
+<html lang="id">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -120,15 +121,18 @@
   </style>
 </head>
 <body>
+
   <header>
     <div class="logo">ASIASLOT</div>
     <div class="btn-group">
       <button class="btn-daftar" onclick="showModal('register')">Daftar</button>
       <button class="btn-masuk" onclick="showModal('login')">Masuk</button>
     </div>
-  </header>  <div class="banner">
-    💰 Promo Spesial - Total Hadiah 2 Miliar!
-  </div>  <div class="menu-game">
+  </header>
+
+  <div class="banner">💰 Promo Spesial - Total Hadiah 2 Miliar!</div>
+
+  <div class="menu-game">
     <div class="game-item">
       <img src="https://img.icons8.com/ios-filled/50/ffffff/slot-machine.png" alt="slot">
       <div>Slots</div>
@@ -149,411 +153,117 @@
       <img src="https://img.icons8.com/ios-filled/50/ffffff/lotto.png" alt="lotto">
       <div>Lotto</div>
     </div>
-  </div>  <footer>
+  </div>
+
+  <footer>
     <div class="nav-icon">🏠<br>Beranda</div>
     <div class="nav-icon">📝<br>Daftar</div>
     <div class="nav-icon">🔐<br>Masuk</div>
     <div class="nav-icon">🎁<br>Promosi</div>
     <div class="nav-icon">☰<br>Menu</div>
-  </footer>  <!-- Modal Login -->  <div id="modal-login" class="modal">
+  </footer>
+
+  <!-- Modal Login -->
+  <div id="modal-login" class="modal">
     <div class="modal-content">
       <h3>Masuk Akun</h3>
-      <input type="text" placeholder="Username" id="login-user">
-      <input type="password" placeholder="Password" id="login-pass">
+      <input type="text" placeholder="Username" id="login-user" required>
+      <input type="password" placeholder="Password" id="login-pass" required>
       <button onclick="submitLogin()">Masuk</button>
       <div class="close-btn" onclick="closeModal('login')">Tutup</div>
     </div>
-  </div>  <!-- Modal Register -->  <div id="modal-register" class="modal">
+  </div>
+
+  <!-- Modal Register -->
+  <div id="modal-register" class="modal">
     <div class="modal-content">
       <h3>Buat Akun Baru</h3>
-      <input type="text" placeholder="Username" id="reg-user">
-      <input type="password" placeholder="Password" id="reg-pass">
-      <input type="password" placeholder="Ulangi Password" id="reg-repass">
-      <input type="text" placeholder="Nama Lengkap" id="reg-nama">
-      <input type="email" placeholder="Email" id="reg-email">
-      <input type="tel" placeholder="Nomor HP" id="reg-hp">
+      <input type="text" placeholder="Username" id="reg-user" required>
+      <input type="password" placeholder="Password" id="reg-pass" required>
+      <input type="password" placeholder="Ulangi Password" id="reg-repass" required>
+      <input type="text" placeholder="Nama Lengkap" id="reg-nama" required>
+      <input type="email" placeholder="Email" id="reg-email" required>
+      <input type="tel" placeholder="Nomor HP" id="reg-hp" required>
       <button onclick="submitRegister()">Daftar</button>
       <div class="close-btn" onclick="closeModal('register')">Tutup</div>
     </div>
-  </div>  <script>
+  </div>
+
+  <script>
     function showModal(type) {
       document.getElementById(`modal-${type}`).style.display = 'flex';
     }
-    function closeModal(type) {
-      document.getElementById(`modal-${type}`).style.display = 'none';
-    }
-    function submitLogin() {
-      alert("Login berhasil (simulasi)");
-      closeModal('login');
-    }
-    function submitRegister() {
-      const pass = document.getElementById("reg-pass").value;
-      const repass = document.getElementById("reg-repass").value;
-      if (pass !== repass) {
-        alert("Password tidak cocok");
-        return;
-      }
-      alert("Pendaftaran berhasil (simulasi)");
-      closeModal('register');
-    }
-  </script></body>
-</html>
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>AsiaSlot</title>
-  <style>
-    body {
-      margin: 0;
-      font-family: 'Segoe UI', sans-serif;
-      background: #0d0d0d;
-      color: white;
-    }
-    header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      background: #000;
-      padding: 10px 15px;
-    }
-    .logo {
-      font-weight: bold;
-      font-size: 20px;
-      color: #ff2c2c;
-    }
-    .btn-group button {
-      margin-left: 10px;
-      padding: 8px 14px;
-      border: none;
-      border-radius: 6px;
-      font-weight: bold;
-      cursor: pointer;
-    }
-    .btn-daftar { background: #007bff; color: white; }
-    .btn-masuk { background: #dc3545; color: white; }
-    .banner {
-      background: linear-gradient(to right, #2c3e50, #4ca1af);
-      text-align: center;
-      padding: 30px 10px;
-      font-size: 20px;
-      font-weight: bold;
-    }
-    .menu-game {
-      display: flex;
-      overflow-x: auto;
-      padding: 10px;
-      gap: 10px;
-      background: #111;
-    }
-    .game-item {
-      flex: 0 0 auto;
-      text-align: center;
-      padding: 10px;
-      border-radius: 10px;
-      background: #222;
-      min-width: 80px;
-    }
-    .game-item img {
-      width: 40px;
-      margin-bottom: 5px;
-    }
-    footer {
-      position: fixed;
-      bottom: 0;
-      left: 0;
-      right: 0;
-      background: #000;
-      display: flex;
-      justify-content: space-around;
-      padding: 10px 0;
-      border-top: 1px solid #444;
-    }
-    .nav-icon {
-      font-size: 12px;
-      text-align: center;
-      color: #aaa;
-    }
-    .modal {
-      display: none;
-      position: fixed;
-      top: 0; left: 0; right: 0; bottom: 0;
-      background: rgba(0,0,0,0.8);
-      z-index: 999;
-      justify-content: center;
-      align-items: center;
-    }
-    .modal-content {
-      background: #1c1c1c;
-      padding: 20px;
-      border-radius: 10px;
-      width: 90%;
-      max-width: 400px;
-    }
-    .modal-content h3 {
-      margin-top: 0;
-      text-align: center;
-    }
-    .modal-content input {
-      width: 100%;
-      margin-bottom: 10px;
-      padding: 10px;
-      border: none;
-      border-radius: 5px;
-      font-size: 14px;
-    }
-    .modal-content button {
-      width: 100%;
-      padding: 10px;
-      border: none;
-      background: #007bff;
-      color: white;
-      font-weight: bold;
-      border-radius: 5px;
-    }
-    .close-btn {
-      text-align: center;
-      margin-top: 10px;
-      color: #ccc;
-      cursor: pointer;
-    }
-  </style>
-</head>
-<body>
-  </footer>  <!-- Modal Login -->  <div id="modal-login" class="modal">
-    <div class="modal-content">
-      <h3>Masuk Akun</h3>
-      <input type="text" placeholder="Username" id="login-user">
-      <input type="password" placeholder="Password" id="login-pass">
-      <button onclick="submitLogin()">Masuk</button>
-      <div class="close-btn" onclick="closeModal('login')">Tutup</div>
-    </div>
-  </div>  <!-- Modal Register -->  <div id="modal-register" class="modal">
-    <div class="modal-content">
-      <h3>Buat Akun Baru</h3>
-      <input type="text" placeholder="Username" id="reg-user">
-      <input type="password" placeholder="Password" id="reg-pass">
-      <input type="password" placeholder="Ulangi Password" id="reg-repass">
-      <input type="text" placeholder="Nama Lengkap" id="reg-nama">
-      <input type="email" placeholder="Email" id="reg-email">
-      <input type="tel" placeholder="Nomor HP" id="reg-hp">
-      <button onclick="submitRegister()">Daftar</button>
-      <div class="close-btn" onclick="closeModal('register')">Tutup</div>
-    </div>
-  </div>  <script>
-    function showModal(type) {
-      document.getElementById(`modal-${type}`).style.display = 'flex';
-    }
-    function closeModal(type) {
-      document.getElementById(`modal-${type}`).style.display = 'none';
-    }
-    function submitLogin() {
-      alert("Login berhasil (simulasi)");
-      closeModal('login');
-    }
-    function submitRegister() {
-      const pass = document.getElementById("reg-pass").value;
-      const repass = document.getElementById("reg-repass").value;
-      if (pass !== repass) {
-        alert("Password tidak cocok");
-        return;
-      }
-      alert("Pendaftaran berhasil (simulasi)");
-      closeModal('register');
-    }
-  </script></body>
-</html>
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>AsiaSlot</title>
-  <style>
-    body {
-      margin: 0;
-      font-family: 'Segoe UI', sans-serif;
-      background: #0d0d0d;
-      color: white;
-    }
-    header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      background: #000;
-      padding: 10px 15px;
-    }
-    .logo {
-      font-weight: bold;
-      font-size: 20px;
-      color: #ff2c2c;
-    }
-    .btn-group button {
-      margin-left: 10px;
-      padding: 8px 14px;
-      border: none;
-      border-radius: 6px;
-      font-weight: bold;
-      cursor: pointer;
-    }
-    .btn-daftar { background: #007bff; color: white; }
-    .btn-masuk { background: #dc3545; color: white; }
-    .banner {
-      background: linear-gradient(to right, #2c3e50, #4ca1af);
-      text-align: center;
-      padding: 30px 10px;
-      font-size: 20px;
-      font-weight: bold;
-    }
-    .menu-game {
-      display: flex;
-      overflow-x: auto;
-      padding: 10px;
-      gap: 10px;
-      background: #111;
-    }
-    .game-item {
-      flex: 0 0 auto;
-      text-align: center;
-      padding: 10px;
-      border-radius: 10px;
-      background: #222;
-      min-width: 80px;
-    }
-    .game-item img {
-      width: 40px;
-      margin-bottom: 5px;
-    }
-    footer {
-      position: fixed;
-      bottom: 0;
-      left: 0;
-      right: 0;
-      background: #000;
-      display: flex;
-      justify-content: space-around;
-      padding: 10px 0;
-      border-top: 1px solid #444;
-    }
-    .nav-icon {
-      font-size: 12px;
-      text-align: center;
-      color: #aaa;
-    }
-    .modal {
-      display: none;
-      position: fixed;
-      top: 0; left: 0; right: 0; bottom: 0;
-      background: rgba(0,0,0,0.8);
-      z-index: 999;
-      justify-content: center;
-      align-items: center;
-    }
-    .modal-content {
-      background: #1c1c1c;
-      padding: 20px;
-      border-radius: 10px;
-      width: 90%;
-      max-width: 400px;
-    }
-    .modal-content h3 {
-      margin-top: 0;
-      text-align: center;
-    }
-    .modal-content input {
-      width: 100%;
-      margin-bottom: 10px;
-      padding: 10px;
-      border: none;
-      border-radius: 5px;
-      font-size: 14px;
-    }
-    .modal-content button {
-      width: 100%;
-      padding: 10px;
-      border: none;
-      background: #007bff;
-      color: white;
-      font-weight: bold;
-      border-radius: 5px;
-    }
-    .close-btn {
-      text-align: center;
-      margin-top: 10px;
-      color: #ccc;
-      cursor: pointer;
-    }
-  </style>
-</head>
-<body>
-  </footer>  <!-- Modal Login -->  <div id="modal-login" class="modal">
-    <div class="modal-content">
-      <h3>Masuk Akun</h3>
-      <input type="text" placeholder="Username" id="login-user">
-      <input type="password" placeholder="Password" id="login-pass">
-      <button onclick="submitLogin()">Masuk</button>
-      <div class="close-btn" onclick="closeModal('login')">Tutup</div>
-    </div>
-  </div>  <!-- Modal Register -->  <div id="modal-register" class="modal">
-    <div class="modal-content">
-      <h3>Buat Akun Baru</h3>
-      <input type="text" placeholder="Username" id="reg-user">
-      <input type="password" placeholder="Password" id="reg-pass">
-      <input type="password" placeholder="Ulangi Password" id="reg-repass">
-      <input type="text" placeholder="Nama Lengkap" id="reg-nama">
-      <input type="email" placeholder="Email" id="reg-email">
-      <input type="tel" placeholder="Nomor HP" id="reg-hp">
-      <button onclick="submitRegister()">Daftar</button>
-      <div class="close-btn" onclick="closeModal('register')">Tutup</div>
-    </div>
-  </div>  <script>
-    function showModal(type) {
-      document.getElementById(`modal-${type}`).style.display = 'flex';
-    }
+
     function closeModal(type) {
       document.getElementById(`modal-${type}`).style.display = 'none';
     }
 
     async function submitRegister() {
-      const username = document.getElementById("reg-user").value;
+      const username = document.getElementById("reg-user").value.trim();
       const password = document.getElementById("reg-pass").value;
       const repass = document.getElementById("reg-repass").value;
-      const fullname = document.getElementById("reg-nama").value;
-      const email = document.getElementById("reg-email").value;
-      const phone = document.getElementById("reg-hp").value;
+      const fullname = document.getElementById("reg-nama").value.trim();
+      const email = document.getElementById("reg-email").value.trim();
+      const phone = document.getElementById("reg-hp").value.trim();
 
-      if (password !== repass) return alert("Password tidak cocok");
+      if (!username || !password || !fullname || !email || !phone) {
+        return alert("Semua kolom wajib diisi!");
+      }
+      if (!email.includes("@")) {
+        return alert("Format email tidak valid!");
+      }
+      if (password !== repass) {
+        return alert("Password tidak cocok!");
+      }
 
-      const res = await fetch("http://localhost:3000/register", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ username, password, fullname, email, phone })
-      });
+      try {
+        const res = await fetch("http://localhost:3000/register", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ username, password, fullname, email, phone })
+        });
 
-      const data = await res.json();
-      if (data.success) {
-        alert("Pendaftaran berhasil!");
-        closeModal('register');
-      } else {
-        alert("Gagal: " + data.message);
+        const data = await res.json();
+        if (data.success) {
+          alert("Pendaftaran berhasil!");
+          closeModal('register');
+        } else {
+          alert("Gagal: " + data.message);
+        }
+      } catch (err) {
+        alert("Terjadi kesalahan saat mendaftar");
+        console.error(err);
       }
     }
 
     async function submitLogin() {
-      const username = document.getElementById("login-user").value;
+      const username = document.getElementById("login-user").value.trim();
       const password = document.getElementById("login-pass").value;
 
-      const res = await fetch("http://localhost:3000/login", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ username, password })
-      });
+      if (!username || !password) {
+        return alert("Username dan password wajib diisi!");
+      }
 
-      const data = await res.json();
-      if (data.success) {
-        alert("Login berhasil! Selamat datang " + data.user.username);
-        localStorage.setItem("token", data.token);
-        closeModal('login');
-      } else {
-        alert("Login gagal: " + data.message);
+      try {
+        const res = await fetch("http://localhost:3000/login", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ username, password })
+        });
+
+        const data = await res.json();
+        if (data.success) {
+          alert("Login berhasil! Selamat datang " + data.user.username);
+          localStorage.setItem("token", data.token);
+          closeModal('login');
+        } else {
+          alert("Login gagal: " + data.message);
+        }
+      } catch (err) {
+        alert("Terjadi kesalahan saat login");
+        console.error(err);
       }
     }
-  </script></body>
+  </script>
+</body>
 </html>
